@@ -13,14 +13,14 @@ func _ready():
 
     var rng = RandomNumberGenerator.new()
     randomize()
-    var noise_offset = rng.randf_range(0.0, 30.0)
     var noise = OpenSimplexNoise.new()
+    noise.seed = randi()
     noise.octaves = 1
     noise.period = 8.0
 
     for x in range(self.size + 1):
         for z in range(self.size + 1):
-            var y = (noise.get_noise_2d(x + noise_offset, z + noise_offset) + 1.0) * 3.0
+            var y = (noise.get_noise_2d(x, z) + 1.0) * 3.0
             if x == 0 || z == 0 || x == self.size || z == self.size:
                 y = 40.0
             st.add_vertex(Vector3(x - half_size, y, z - half_size))
